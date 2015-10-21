@@ -15,11 +15,8 @@ import android.view.MenuItem;
  *
  * This activity extends AppCompatActivity to provide the primary interface for user interaction.
  *
- *
  * @author Salesforce (R) 2015.
- *
  */
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -30,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        /* adds items to the action bar if present. */
+        /** Add items to the action bar if present. */
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -42,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
          * The action bar automatically handles clicks on the Home/Up button if
          * a parent activity in AndroidManifest.xml has been specified.
          */
-
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {

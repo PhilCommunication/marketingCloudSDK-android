@@ -25,24 +25,25 @@ import com.exacttarget.etpushsdk.util.EventBus;
  * This class extends Application to provide global activities.
  *
  * @author Salesforce (R) 2015.
- *
  */
 public class ApplicationClass extends Application {
 
     public static final String TAG = "ApplicationClass";
 
-    // ANALYTICS_ENABLED is set to true to show how Salesforce analytics will save statistics for
-    // how your customers use the app.
-
-    // CLOUD_PAGES_ENABLED is set to true to test how notifications can send your app customers to
-    // different web pages.
-
-    // WAMA_ENABLED is set to true to show how Predictive Intelligence analytics (PIAnalytics) will
-    // save statistics for how your customers use the app (by invitation at this point).
-
-    // LOCATION_ENABLED is set to true to show how geo fencing works within the SDK.
-
-    // Your app will have these choices set based on how you want your app to work.
+    /**
+     * ANALYTICS_ENABLED is set to true to show how Salesforce analytics will save statistics for
+     * how your customers use the app.
+     *
+     * CLOUD_PAGES_ENABLED is set to true to test how notifications can send your app customers to
+     * different web pages.
+     *
+     * WAMA_ENABLED is set to true to show how Predictive Intelligence analytics (PIAnalytics) will
+     * save statistics for how your customers use the app (by invitation at this point).
+     *
+     * LOCATION_ENABLED is set to true to show how geo fencing works within the SDK.
+     *
+     * Your app will have these choices set based on how you want your app to work.
+     */
 
     public static final boolean ANALYTICS_ENABLED = true;
     public static final boolean CLOUD_PAGES_ENABLED = true;
@@ -61,9 +62,9 @@ public class ApplicationClass extends Application {
 
     /**
      * In ETPush.readyAimFire() you must set several parameters.
-     *  AppId and AccessToken: these values are taken from the Marketing Cloud definition for your app.
-     *  GcmSenderId for the push notifications: this value is taken from the Google API console.
-     *  You also set whether you enable LocationManager, CloudPages, and Analytics.
+     * AppId and AccessToken: these values are taken from the Marketing Cloud definition for your app.
+     * GcmSenderId for the push notifications: this value is taken from the Google API console.
+     * You also set whether you enable LocationManager, CloudPages, and Analytics.
      *
      * When ReadyAimFire() is called for the first time for a device, it will get a device token
      * from Google or Amazon and send to the MarketingCloud.
@@ -97,7 +98,7 @@ public class ApplicationClass extends Application {
          */
         EventBus.getInstance().register(this);
 
-        // Register to receive push notifications.
+        /** Register to receive push notifications. */
         try {
             ETPush.readyAimFire(new ETPushConfig.Builder(this)
                             .setEtAppId(getString(R.string.app_id))
@@ -129,9 +130,9 @@ public class ApplicationClass extends Application {
     }
 
     /**
-     * Return the application version code as recorded in the app's build.gradle file.
+     * Returns the application version code as recorded in the app's build.gradle file.
      *
-     * @return an int representing the application version code
+     * @return the application version code
      */
     private int getAppVersionCode() {
         try {
@@ -152,7 +153,7 @@ public class ApplicationClass extends Application {
      *
      * These events are only called if EventBus.getInstance().register() is called.
      *
-     * @param event the type of event we're listening for.
+     * @param event  event with attributes to log as notifications
      */
 
     public void onEvent(final RegistrationEvent event) {

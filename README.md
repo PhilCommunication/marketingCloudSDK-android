@@ -2,7 +2,7 @@
 
 [[TOC]]
 
-# Aboutt
+# About
 
 This project provides a template for creating a mobile app (Android or iOS) that uses the Journey Builder for Apps SDK.  It is also a UI for exploring its features and provides a mechanism to collect and send debugging information to learn about the workings of the SDK as you explore.
 

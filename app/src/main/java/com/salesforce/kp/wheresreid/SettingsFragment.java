@@ -39,6 +39,7 @@ import java.util.Set;
  */
 public class SettingsFragment extends PreferenceFragment {
     /* Set of current tags */
+    
     private Set<String> allTags;
     private ETPush pusher;
     private SharedPreferences sp;
@@ -59,14 +60,16 @@ public class SettingsFragment extends PreferenceFragment {
 
         try {
             this.pusher = ETPush.getInstance();
+
             /* gets the tags */
             Log.e("TAGS", this.pusher.getTags().toString());
+
             storeAllTags(this.pusher.getTags());
         } catch (Exception e){
             e.printStackTrace();
         }
 
-        /* SUBSCRIBER KEY PREFERENCE */
+        /** SUBSCRIBER KEY PREFERENCE */
 
         /* KEY_PREF_SUBSCRIBER_KEY must match the key of the EditTextPreference correspondent to the subscriber key. */
         final String KEY_PREF_SUBSCRIBER_KEY = "pref_subscriber_key";
@@ -182,7 +185,7 @@ public class SettingsFragment extends PreferenceFragment {
     }
 
     /**
-     * Receives a Set of Tags, those are stored in Shared preferences
+     * Receives a Set of tags and adds them to the Set of tags in Shared Preferences.
      *
      * @param pSet a Set<String> of Tags to be stored.
      */
@@ -194,6 +197,7 @@ public class SettingsFragment extends PreferenceFragment {
             setToLoad.add(t);
         }
         /* Stores the tags in Shared Preferences */
+
         SharedPreferences.Editor editor = sp.edit();
         Set<String> setToSave = new HashSet<String>();
         setToSave.addAll(setToLoad);
@@ -203,7 +207,7 @@ public class SettingsFragment extends PreferenceFragment {
     }
 
     /**
-     * Receives a Tag to Store in Shared preferences
+     * Receives a tag to save in Shared Preferences.
      *
      * @param tag a new Tag to be added.
      * @return A new instance of fragment SettingsFragment.
@@ -220,11 +224,13 @@ public class SettingsFragment extends PreferenceFragment {
      */
     private void configureTags(){
         /* Creates a new PreferenceCategory if is not already created. */
+
         PreferenceCategory tagsSection = (PreferenceCategory)this.prefScreen.findPreference("pref_tag_section");
         if (this.prefScreen.findPreference("pref_tag_section") == null) {
             tagsSection = new PreferenceCategory(getActivity());
             tagsSection.setTitle(getResources().getString(R.string.pref_tag_category_title));
             tagsSection.setKey("pref_tag_section");
+
             /* Creates 'About' preference */
             Preference about = new Preference(getActivity());
             about.setTitle(getResources().getString(R.string.pref_tag_about));
@@ -237,6 +243,7 @@ public class SettingsFragment extends PreferenceFragment {
             et.setKey("pref_new_tag");
             et.setSummary(getResources().getString(R.string.pref_new_tag_summ));
             et.setTitle(getResources().getString(R.string.pref_new_tag));
+
             /* Adds the PreferenceCategory to the Preference's screen. */
             this.prefScreen.addPreference(tagsSection);
             /* Adds the 'About' section to Tags section */
@@ -245,13 +252,14 @@ public class SettingsFragment extends PreferenceFragment {
             tagsSection.addPreference(et);
         }
         /* Creates the rows out of the tag's list. */
+
         for (String tag : this.allTags){
             addTagCheckbox(tagsSection, tag);
         }
     }
 
     /**
-     * Creates a row from the Tag passed as parameter to be displayed.
+     * Creates a row from the tag passed in as parameter to be displayed.
      *
      * @param prefCat a PreferenceCategory, the section where the Tag is going to be displayed on.
      * @param tag the Tag to be displayed on the screen.
@@ -271,7 +279,9 @@ public class SettingsFragment extends PreferenceFragment {
 
                 @Override
                 public boolean onPreferenceChange(Preference pref, Object newValue) {
-                    /* Adds the Tag to the Pusher instance if it is checked, removes it otherwise. */
+
+                    /** Add the tag to the Pusher instance if checked, otherwise remove it. */
+
                     Boolean enabled = (Boolean) newValue;
                     try {
                         if (enabled) {
@@ -287,7 +297,8 @@ public class SettingsFragment extends PreferenceFragment {
                     return true;
                 }
             });
-            /* Adds the row to the section. */
+
+            /** Add row to the section. */
             prefCat.addPreference(cbp);
         }
     }

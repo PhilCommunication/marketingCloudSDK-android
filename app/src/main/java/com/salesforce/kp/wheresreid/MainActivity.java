@@ -2,11 +2,6 @@ package com.salesforce.kp.wheresreid;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,12 +12,18 @@ import android.view.MenuItem;
  *
  * @author Salesforce (R) 2015.
  */
+<<<<<<< HEAD
 public class MainActivity extends AppCompatActivity {
+=======
+
+public class MainActivity extends BaseActivity {
+>>>>>>> fd253275b3d878b559186bd1a3b0883aaf77a6fe
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_main);
     }
 
     @Override
@@ -44,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
         }
-
+        else if (id == R.id.action_cloudpage_inbox){
+            startActivity(new Intent(this, CloudPageInboxActivity.class));
+        }
         return super.onOptionsItemSelected(item);
     }
 }

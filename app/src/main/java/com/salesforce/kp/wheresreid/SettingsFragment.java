@@ -38,7 +38,11 @@ import java.util.Set;
  * to handle interaction events.
  */
 public class SettingsFragment extends PreferenceFragment {
+<<<<<<< HEAD
     /** Current set of tags*/
+=======
+    /* Set of current tags */
+>>>>>>> fd253275b3d878b559186bd1a3b0883aaf77a6fe
     private Set<String> allTags;
     private ETPush pusher;
     private SharedPreferences sp;
@@ -59,8 +63,13 @@ public class SettingsFragment extends PreferenceFragment {
 
         try {
             this.pusher = ETPush.getInstance();
+<<<<<<< HEAD
             // get tags
             Log.e("TAGSS", this.pusher.getTags().toString());
+=======
+            /* gets the tags */
+            Log.e("TAGS", this.pusher.getTags().toString());
+>>>>>>> fd253275b3d878b559186bd1a3b0883aaf77a6fe
             storeAllTags(this.pusher.getTags());
         } catch (Exception e){
             e.printStackTrace();
@@ -68,7 +77,11 @@ public class SettingsFragment extends PreferenceFragment {
 
         /** SUBSCRIBER KEY PREFERENCE */
 
+<<<<<<< HEAD
         /** KEY_PREF_SUBSCRIBER_KEY must match the key of the EditTextPreference correspondent to the subscriber key. */
+=======
+        /* KEY_PREF_SUBSCRIBER_KEY must match the key of the EditTextPreference correspondent to the subscriber key. */
+>>>>>>> fd253275b3d878b559186bd1a3b0883aaf77a6fe
         final String KEY_PREF_SUBSCRIBER_KEY = "pref_subscriber_key";
 
         final Preference skPref = findPreference(KEY_PREF_SUBSCRIBER_KEY);
@@ -97,7 +110,7 @@ public class SettingsFragment extends PreferenceFragment {
                             Utils.flashError(skET, getString(R.string.error_cannot_be_blank));
                             return;
                         } else {
-                            // save the preference to Shared Preferences
+                            /* saves the preference to Shared Preferences */
                             SharedPreferences.Editor editor = sp.edit();
                             editor.putString(KEY_PREF_SUBSCRIBER_KEY, newSubscriberKey);
                             editor.commit();
@@ -184,6 +197,7 @@ public class SettingsFragment extends PreferenceFragment {
     /**
      * Receives a Set of tags and adds them to the Set of tags in Shared Preferences.
      *
+<<<<<<< HEAD
      * @param  pSet  Parameter 1
      */
     private void storeAllTags(Set<String> pSet) throws ETException{
@@ -194,6 +208,18 @@ public class SettingsFragment extends PreferenceFragment {
             setToLoad.add(t);
         }
         /** Save tags in Shared Preferences */
+=======
+     * @param pSet a Set<String> of Tags to be stored.
+     */
+    private void storeAllTags(Set<String> pSet) throws ETException{
+        /* Retrieves the tags stored in Shared preferences */
+        Set<String> setToLoad = sp.getStringSet("tags", null) == null ? new HashSet<String>() : sp.getStringSet("tags", null);
+        /* Adds the tags from the Set passed as parameter */
+        for (String t : pSet){
+            setToLoad.add(t);
+        }
+        /* Stores the tags in Shared Preferences */
+>>>>>>> fd253275b3d878b559186bd1a3b0883aaf77a6fe
         SharedPreferences.Editor editor = sp.edit();
         Set<String> setToSave = new HashSet<String>();
         setToSave.addAll(setToLoad);
@@ -205,12 +231,18 @@ public class SettingsFragment extends PreferenceFragment {
     /**
      * Receives a tag to save in Shared Preferences.
      *
+<<<<<<< HEAD
      * @param  tag  Parameter 1
      * @return      A new instance of fragment SettingsFragment
+=======
+     * @param tag a new Tag to be added.
+     * @return A new instance of fragment SettingsFragment.
+>>>>>>> fd253275b3d878b559186bd1a3b0883aaf77a6fe
      */
     private void addNewTag(String tag) throws ETException{
         Set tempSet = new HashSet<String>();
         tempSet.add(tag);
+        pusher.addTag(tag);
         storeAllTags(tempSet);
     }
 
@@ -218,25 +250,49 @@ public class SettingsFragment extends PreferenceFragment {
      * Configures the Shared Preferences section to be displayed
      */
     private void configureTags(){
+<<<<<<< HEAD
         /** Create a new PreferenceCategory if not already created. */
+=======
+        /* Creates a new PreferenceCategory if is not already created. */
+>>>>>>> fd253275b3d878b559186bd1a3b0883aaf77a6fe
         PreferenceCategory tagsSection = (PreferenceCategory)this.prefScreen.findPreference("pref_tag_section");
         if (this.prefScreen.findPreference("pref_tag_section") == null) {
             tagsSection = new PreferenceCategory(getActivity());
             tagsSection.setTitle(getResources().getString(R.string.pref_tag_category_title));
             tagsSection.setKey("pref_tag_section");
+<<<<<<< HEAD
             // Create the Add new Tag section
+=======
+            /* Creates 'About' preference */
+            Preference about = new Preference(getActivity());
+            about.setTitle(getResources().getString(R.string.pref_tag_about));
+            about.setSelectable(false);
+            about.setSummary(getResources().getString(R.string.tag_help));
+            /* Creates the Add new Tag section. */
+>>>>>>> fd253275b3d878b559186bd1a3b0883aaf77a6fe
             EditTextPreference et = new EditTextPreference(getActivity());
             et.setDefaultValue("");
             et.setDialogMessage(getResources().getString(R.string.pref_new_tag_summ));
             et.setKey("pref_new_tag");
             et.setSummary(getResources().getString(R.string.pref_new_tag_summ));
             et.setTitle(getResources().getString(R.string.pref_new_tag));
+<<<<<<< HEAD
             // Add the PreferenceCategory to the Preference screen
             this.prefScreen.addPreference(tagsSection);
             // Add the new tag section to the PreferenceCategory
             tagsSection.addPreference(et);
         }
         /** Create the rows out of the tag list. */
+=======
+            /* Adds the PreferenceCategory to the Preference's screen. */
+            this.prefScreen.addPreference(tagsSection);
+            /* Adds the 'About' section to Tags section */
+            tagsSection.addPreference(about);
+            /* Adds the new Tag section to the PreferenceCategory. */
+            tagsSection.addPreference(et);
+        }
+        /* Creates the rows out of the tag's list. */
+>>>>>>> fd253275b3d878b559186bd1a3b0883aaf77a6fe
         for (String tag : this.allTags){
             addTagCheckbox(tagsSection, tag);
         }
@@ -245,11 +301,19 @@ public class SettingsFragment extends PreferenceFragment {
     /**
      * Creates a row from the tag passed in as parameter to be displayed.
      *
+<<<<<<< HEAD
      * @param prefCat  Parameter 1
      * @param tag      Parameter 2
      */
     private void addTagCheckbox(PreferenceCategory prefCat, final String tag) {
         /** Creates a new row if is not already created for the tag. */
+=======
+     * @param prefCat a PreferenceCategory, the section where the Tag is going to be displayed on.
+     * @param tag the Tag to be displayed on the screen.
+     */
+    private void addTagCheckbox(PreferenceCategory prefCat, final String tag) {
+        /* Creates a new row if is not already created for the Tag. */
+>>>>>>> fd253275b3d878b559186bd1a3b0883aaf77a6fe
         CheckBoxPreference cbp = (CheckBoxPreference) this.prefScreen.findPreference(tag);
         if (cbp == null) {
             cbp = new CheckBoxPreference(getActivity());
@@ -263,7 +327,11 @@ public class SettingsFragment extends PreferenceFragment {
 
                 @Override
                 public boolean onPreferenceChange(Preference pref, Object newValue) {
+<<<<<<< HEAD
                     /** Add the tag to the Pusher instance if checked, otherwise remove it. */
+=======
+                    /* Adds the Tag to the Pusher instance if it is checked, removes it otherwise. */
+>>>>>>> fd253275b3d878b559186bd1a3b0883aaf77a6fe
                     Boolean enabled = (Boolean) newValue;
                     try {
                         if (enabled) {
@@ -279,7 +347,11 @@ public class SettingsFragment extends PreferenceFragment {
                     return true;
                 }
             });
+<<<<<<< HEAD
             /** Add row to the section. */
+=======
+            /* Adds the row to the section. */
+>>>>>>> fd253275b3d878b559186bd1a3b0883aaf77a6fe
             prefCat.addPreference(cbp);
         }
     }

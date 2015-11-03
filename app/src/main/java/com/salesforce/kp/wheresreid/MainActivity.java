@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 /**
  * MainActivity is the primary activity.
@@ -19,6 +21,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        prepareDisplay();
     }
 
     @Override
@@ -40,10 +43,29 @@ public class MainActivity extends BaseActivity {
 
         if (id == R.id.action_settings) {
             startActivity(new Intent(this, SettingsActivity.class));
+
+        } else if (id == R.id.action_map) {
+            startActivity(new Intent(this, MapsActivity.class));
         }
         else if (id == R.id.action_cloudpage_inbox){
             startActivity(new Intent(this, CloudPageInboxActivity.class));
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Loads the webView with project's markdown at github
+     */
+    private void prepareDisplay(){
+        WebView markdownView = (WebView) findViewById(R.id.markdownView);
+        markdownView.getSettings().setJavaScriptEnabled(true);
+        markdownView.loadUrl(getResources().getString(R.string.readme_remote_url));
+        markdownView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return false;
+            }
+        });
     }
 }

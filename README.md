@@ -524,6 +524,13 @@ This feature is implemented in Settings Preferences.  We assume that the Subscri
     public static final boolean LOCATION_ENABLED = true;
     ```
 
+4. In your ApplicationClass, set the `PROXIMITY_ENABLED` parameter to true:
+
+    [view the code](/app/src/main/java/com/salesforce/kp/wheresreid/ApplicationClass.java#L52)
+    ```java
+    public static final boolean PROXIMITY_ENABLED = true;
+    ```
+
 <a name="0016b"></a>
 ## Implement Analytics in your Mobile App
 

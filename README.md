@@ -1,3 +1,5 @@
+![Marketing Cloud](imgReadMe/marketing_cloud_logo.png)
+
 # README
 
 1. [About](#0001)
@@ -42,7 +44,7 @@
 
 This project provides a template for creating a mobile app (Android or iOS) that uses the Journey Builder for Apps SDK.  It is also a UI for exploring its features and provides a mechanism to collect and send debugging information to learn about the workings of the SDK as you explore.
 
-The code in this repository includes all of the code used to run the fully functional APK. However, the API keys have been removed. To debug, modify or create a new app the following keys must be set within the corresponding file.
+The code in this repository includes all of the code used to run the fully functional APK including an App ID and Access Token to let you test and debug the application. These keys will trigger an hourly automated push message of a timestamp, indicating that the application is properly setup. To create a new app the following keys must be set with your own values within the corresponding file.
 
 **secrets.xml**
 
@@ -282,9 +284,11 @@ from Google and send to the MarketingCloud.
 
 In ETPush.readyAimFire() you must set several parameters:
 
-    * `AppId` and `AccessToken`: these values are taken from the Marketing Cloud definition for your app.
-    * `GcmSenderId` for the push notifications: this value is taken from the Google API console.
-    * You can also set whether you enable `LocationManager`, `CloudPages`, and `Analytics`.
+  * `app_id` and `access_token`: these values are taken from the Marketing Cloud definition for your app.
+
+  * `gcm_sender_id` for the push notifications: this value is taken from the Google API console.
+
+  * You can also set whether you enable location manager, cloud pages, and analytics.
 
 To set the logging level, call ETPush.setLogLevel().
 
@@ -408,7 +412,7 @@ dependencies {
 
 **ApplicationClass.java**
 
-The boolean parameters `ANALYTICS_ENABLED`, `CLOUD_PAGES_ENABLED`, `WAMA_ENABLED` and `LOCATION_ENABLED` enable certain functionalities of the SDK, however, they are not required for the push notifications themselves to function which will still be sent even if all are set to false.
+The boolean parameters `ANALYTICS_ENABLED`, `CLOUD_PAGES_ENABLED`, `WAMA_ENABLED`, `LOCATION_ENABLED` and `PROXIMITY_ENABLED` enable certain functionalities of the SDK, however, they are not required for the push notifications themselves to function which will still be sent even if all are set to false.
 
 <a name="0014"></a>
 ## Subscriber Key Implementation
@@ -544,17 +548,24 @@ This feature is implemented in Settings Preferences.  We assume that the Subscri
     ```java
     public static final boolean LOCATION_ENABLED = true;
     ```
+4. In your ApplicationClass, set the `PROXIMITY_ENABLED` parameter to true:
+
+    [view the code](/app/src/main/java/com/salesforce/kp/wheresreid/ApplicationClass.java#L52)
+    ```java
+    public static final boolean PROXIMITY_ENABLED = true;
+    ```
+
 
 <a name="0018"></a>
 ## Implement Analytics in your Mobile App
 
 **ApplicationClass.java**
 
-In your ApplicationClass, set the `LOCATION_ENABLED` parameter to true:
+In your ApplicationClass, set the `ANALYTICS_ENABLED` parameter to true:
 
 [view the code](/app/src/main/java/com/salesforce/kp/wheresreid/ApplicationClass.java#L56)
 ```java
-public static final boolean LOCATION_ENABLED = true;
+public static final boolean ANALYTICS_ENABLED = true;
 ```
 
 **BaseActivity.java**
